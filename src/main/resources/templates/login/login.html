@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<script type="text/javascript" src="/css/commonCss.js"></script>
+<script type="text/javascript" src="/js/commonJs.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <link href="favicon.ico" rel="shortcut icon">
+    <title>现代缫丝企业生产管理系统</title>
+</head>
+<style type="text/css">
+    html,body{
+        height: 100%;
+        width:inherit;
+    }
+    #loginDiv{
+        width: 500px;
+        height: 300px;
+        border: none;
+        border-radius: 8px;
+        position:absolute;
+        top:50%;
+        left:50%;
+        margin:-150px 0 0 -250px;
+        background: rgba(255,255,255,0.4);
+        text-align: center;
+        padding: 20px;
+    }
+</style>
+
+<body>
+    <img src="/pictures/loginBack.jpg" style="position: absolute;z-index: 0;left: 0;top: 0;width: 100%;height: 100%">
+    <div  style="position: absolute;z-index: 1;left: 0;top:100px;width: 100%;text-align: center">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             xmlns:xlink="http://www.w3.org/1999/xlink" width="570" height="60">
+            <linearGradient y2="0" x2="1" y1="0" x1="0" id="svg_2">
+                <stop stop-color="#ff7300" offset="0">
+                    <animate attributeName="stop-color" values="#ff7300;#97FFFF;#ff7300"
+                             begin="0s" dur="2s" repeatCount="indefinite" />
+                    </text>
+                </stop>
+                <stop stop-color="#34538b" offset="0.5">
+                    <animate attributeName="stop-color" values="#87CEFA;#43CD80;#87CEFA"
+                             begin="0s" dur="2s" repeatCount="indefinite" />
+                </stop>
+                <stop stop-color="red" offset="1">
+                    <animate attributeName="stop-color" values="#97FFFF;#ff7300;#97FFFF"
+                             begin="0s" dur="2s" repeatCount="indefinite" />
+                </stop>
+                </text>
+            </linearGradient>
+            <g transform="scale(2.5)">
+                <text xmlns="http://www.w3.org/2000/svg" fill="url(#svg_2)"
+                      id="TextElement" x="0" y="20"
+                      style="font-family:微软雅黑;font-size:18px; ">
+                    现 代 缫 丝 企 业 管 理 系 统
+                </text>
+            </g>
+        </svg>
+    </div>
+    <div id="loginDiv">
+        <div id="loginWarm" style="width: 240px;height:26px;margin-bottom: 10px;margin-left: 25%;border: 1px solid #ffb4a8;background: #fef2f2;text-align: left;display: none">
+            <img src="/pictures/warm.png" style="width: 26px;height: 26px"></img>
+            <span id="warmText"></span>
+        </div>
+        <form id="loginForm" class="bs-example bs-example-form" role="form">
+            <div class="form-group">
+                <img src="/pictures/department.png" style="width: 32px;height: 32px"></img>
+                <select id="selectDep" name="depid" title="选择用户部门" class="selectpicker" style="width: 250px">
+                    <option th:each="dep,depStat:${session.deps}" th:value="${dep.depid}" th:text="${dep.name}"></option>
+                </select>
+            </div>
+            <div class="form-group" style="margin-top: 20px">
+                <img src="/pictures/user.png" style="width: 32px;height: 32px"></img>
+                <input type="text" name="userName"  placeholder="用户名/手机号" style="width: 200px;height: 34px;border-radius:4px">
+            </div>
+            <div class="form-group" style="margin-top: 20px">
+                <img src="/pictures/password.png" style="width: 32px;height: 32px"></img>
+                <input type="password" name="password"  placeholder="输入登录密码" style="width: 200px;height: 34px;border-radius:4px">
+            </div>
+            <div class="form-group" style="margin-top: 20px">
+                <div style="width: 240px;margin-left: 25%">
+                    <button id="login" type="button" class="btn btn-warning" style="width: 235px">登录</button>
+                </div>
+
+            </div>
+        </form>
+
+
+
+    </div>
+</body>
+<script src="/js/login.js"></script>
+<script>
+    $("#selectDep").selectpicker({width:"200px"});
+</script>
+</html>

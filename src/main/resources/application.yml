@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/ssgl?serverTimezone=UTC&characterEncoding=UTF-8
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
+  mvc:
+    view:
+      prefix: /templates/
+      suffix: .html
+    static-path-pattern: /**
+  resources:
+    static-locations: classpath:/static/
+    chain:
+      strategy:
+        content:
+          enabled: false
+          paths: /static/css/**,/static/js/**,/static/pictures/**
+
+
+mybatis:
+  typeAliasesPackage: com.cxt.ssgl.dao.entity
+  mapperLocations: classpath:mapper/*.xml
