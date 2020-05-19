@@ -1,24 +1,70 @@
 package com.cxt.ssgl.controller;
 
 import com.cxt.ssgl.entity.Department;
+import com.cxt.ssgl.entity.User;
 import com.cxt.ssgl.mapper.UserMapper;
+import com.cxt.ssgl.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/login")
 public class LoginController {
     @Autowired
-    private UserMapper userMapper;
+    private UserService userService;
+
     @RequestMapping("/login")
-    public String login(HttpSession session, Model model){
-        List<Department> deps = userMapper.getDepInfo();
+    public String login(HttpSession session){
+        List<Department> deps = userService.getDepInfo();
         session.setAttribute("deps",deps);
         return "login/login";
+    }
+
+    @RequestMapping("/toLogin")
+    @ResponseBody
+    public Map<String,Object> toLogin(@RequestBody Map<String, Object> params, User user,HttpSession session){
+        String userName = params.get("userName").toString();
+        String password = params.get("password").toString();
+        String depId = params.get("depId").toString();
+        List<Map<String,Object>> list = userService.getUserInfo(userName,depId);
+        Map<String, Object> result = new HashMap<String, Object>();
+        if(list.size()==0){
+            result.put("isSuccess",false);
+            result.put("returnValue","用户不存在");
+        }else{
+            Map<String, Object> userMap = list.get(0);
+            String realPassword = userMap.get("password").toString();
+            if(password.equals(realPassword)){
+                result.put("isSuccess",true);
+                result.put("returnValue","登录成功");
+                user.setName(userMap.get("name").toString());
+                user.setAge(Integer.parseInt(userMap.get("age").toString()));
+                user.setDepID(userMap.get("depID").toString());
+                user.setUserID(userMap.get("userID").toString());
+                user.setDepName(userMap.get("depName").toString());
+                user.setSex(userMap.get("sex").toString());
+                user.setTel(userMap.get("tel").toString());
+                session.setAttribute("user",user);
+            }else{
+                result.put("isSuccess",false);
+                result.put("returnValue","密码错误");
+            }
+        }
+
+        return result;
+    }
+
+    @RequestMapping("/toIndex")
+    public String toIndex(Model model,HttpSession session){
+        return "index/index";
     }
 }

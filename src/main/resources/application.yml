@@ -25,3 +25,7 @@ spring:
 mybatis:
   typeAliasesPackage: com.cxt.ssgl.dao.entity
   mapperLocations: classpath:mapper/*.xml
+server:
+  servlet:
+    session:
+      timeout: 28800

@@ -1,5 +1,9 @@
 $(function() {
-
+    $(window).keydown(function(event){
+        if(event.keyCode==13){
+            $("#login").trigger("click");
+        }
+    });
 });
 
 function getFormData(eId) {
@@ -23,7 +27,7 @@ function getFormData(eId) {
 
 $("#login").on("click",function () {
     var map = getFormData("loginForm");
-    var depId = map.depid;
+    var depId = map.depId;
     var userName = map.userName;
     var password = map.password;
     if(!depId){
@@ -44,5 +48,24 @@ $("#login").on("click",function () {
         $("#loginWarm").show();
         return;
     }
-
+    password = $.md5(password);
+    map.password = password;
+    var data = JSON.stringify(map);
+    $.ajax({
+        url : 'toLogin',
+        type : "post",
+        dataType : "json",
+        contentType : "application/json",
+        data : data,
+        success : function(res) {
+            if(res.isSuccess){
+                window.location.href="/login/toIndex";
+            }else{
+                var text = res.returnValue;
+                $("#warmText").text(text);
+                $("#loginWarm").show();
+                return;
+            }
+        }
+    });
 })

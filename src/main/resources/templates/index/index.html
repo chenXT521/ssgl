@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.w3.org/1999/xhtml">
+<script type="text/javascript" src="/css/commonCss.js"></script>
+<script type="text/javascript" src="/js/commonJs.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+</head>
+<body>
+    当前登录人:<span  th:text="${session.user.depName}"/>-<span  th:text="${session.user.name}"/>
+</body>
+</html>

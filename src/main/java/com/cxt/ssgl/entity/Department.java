@@ -2,22 +2,22 @@ package com.cxt.ssgl.entity;
 
 public class Department {
 
-    private String depid;
-    private String name;
+    private String depID;
+    private String depName;
 
-    public String getDepid() {
-        return depid;
+    public String getDepID() {
+        return depID;
     }
 
-    public void setDepid(String depid) {
-        this.depid = depid;
+    public void setDepID(String depID) {
+        this.depID = depID;
     }
 
-    public String getName() {
-        return name;
+    public String getDepName() {
+        return depName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDepName(String depName) {
+        this.depName = depName;
     }
 }

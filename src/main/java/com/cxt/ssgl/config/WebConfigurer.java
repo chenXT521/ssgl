@@ -26,6 +26,7 @@ public class WebConfigurer implements WebMvcConfigurer {
         registration.addPathPatterns("/**");
         registration.excludePathPatterns(
                 "/login/login",            //登录
+                "/login/toLogin",
                 "/**/*.html",            //html静态资源
                 "/**/*.js",              //js静态资源
                 "/**/*.css",             //css静态资源
@@ -35,4 +36,6 @@ public class WebConfigurer implements WebMvcConfigurer {
                 "/**/*.jpg"
         );
     }
+
+
 }

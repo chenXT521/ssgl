@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -25,5 +26,11 @@ public class UserService implements UserMapper {
     public List<Department> getDepInfo() {
         List<Department> deps=userMapper.getDepInfo();
         return deps;
+    }
+
+    @Override
+    public List<Map<String, Object>> getUserInfo(String name, String depID) {
+        List<Map<String, Object>> list = userMapper.getUserInfo(name,depID);
+        return list;
     }
 }
