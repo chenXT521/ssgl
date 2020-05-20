@@ -2,6 +2,7 @@
 <html lang="en"  xmlns:th="http://www.w3.org/1999/xhtml">
 <script type="text/javascript" src="/css/commonCss.js"></script>
 <script type="text/javascript" src="/js/commonJs.js"></script>
+<link rel="stylesheet" href="/plugins/layui/css/layui.css">
 <head>
     <meta charset="UTF-8">
     <title>广西桂华丝绸有限公司生产管理系统</title>
@@ -11,9 +12,60 @@
         padding: 5px 15px !important;
     }
 </style>
-<body>
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <div class="layui-logo">
+                <img src="/pictures/logo.png" style="width: 45px;height: 40px"></img>
+                <a  target="_blank" href="http://www.gxsilk.com/" style="color: white;line-height: 40px">广西桂华丝绸有限公司</a>
+            </div>
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                        <span  th:text="${session.user.depName}"/>-<span  th:text="${session.user.name}"/>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">个人信息</a></dd>
+                        <dd><a href="">修改密码</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="/login/logout">退出</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll" id="leftMenu">
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;">所有商品</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:;">列表一</a></dd>
+                            <dd><a href="javascript:;">列表二</a></dd>
+                            <dd><a href="javascript:;">列表三</a></dd>
+                            <dd><a href="">超链接</a></dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="layui-body">
+            <!-- 内容主体区域 -->
+            <div style="padding: 15px;">内容主体区域</div>
+        </div>
+        <div class="layui-footer">
+            <!-- 底部固定区域 -->
+            © layui.com - 底部固定区域
+        </div>
+
+    </div>
+
     <!--当前登录人:<span  th:text="${session.user.depName}"/>-<span  th:text="${session.user.name}"/>-->
-    <nav class="navbar navbar-inverse">
+    <!--<nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" title="广西桂华丝绸有限公司" href="#">
@@ -24,68 +76,55 @@
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li role="presentation">
-                        <a href="#">当前用户：<span  th:text="${session.user.depName}"/>-<span  th:text="${session.user.name}"/></a>
+                        <a href="#"><i class="glyphicon glyphicon-user"></i><span  th:text="${session.user.depName}"/>-<span  th:text="${session.user.name}"/></a>
                     </li>
                     <li>
                         <a href="/login/logout">
-                            <span class="glyphicon glyphicon-lock"></span>退出登录</a>
+                            <i class="glyphicon glyphicon-log-out"></i>退出登录</a>
                     </li>
                 </ul>
             </div>
         </div>
-    </nav>
-
-    <!--<div class="pageContainer">
-        &lt;!&ndash; 左侧导航栏 &ndash;&gt;
-        <div class="pageSidebar">
-            <ul class="nav nav-stacked nav-pills">
-                <li role="presentation">
-                    <a href="nav1.html" target="mainFrame" >课程管理</a>
-                </li>
-                <li role="presentation">
-                    <a href="nav2.html" target="mainFrame">学生管理</a>
-                </li>
-                <li role="presentation">
-                    <a href="nav3.html" target="mainFrame">教师管理</a>
-                </li>
-                &lt;!&ndash; 开始 &ndash;&gt;
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="nav4.html" target="mainFrame">
-                        个人设置<span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="nav1.html" target="mainFrame">修改密码</a>
-                        </li>
-                        <li>
-                            <a href="nav2.html" target="mainFrame">退出系统</a>
-                        </li>
-                        <li>
-                            <a href="nav3.html" target="mainFrame">查看个人信息</a>
-                        </li>
-                    </ul>
-                </li>
-                &lt;!&ndash; 结束 &ndash;&gt;
-                <li role="presentation">
-                    <a href="nav5.html" target="mainFrame">权限设置</a>
-                </li>
-
-
-
-            </ul>
-        </div>
-
-
-    </div>-->
-    <!-- 底部页脚部分 -->
-    <div class="footer">
-        <p class="text-center">
-            2020 &copy; 如皋市志霆机械
-        </p>
-
-    </div>
+    </nav>-->
 </body>
+<script src="/plugins/layui/layui.js"></script>
 <script type="text/javascript">
+    $(function () {
+        $.ajax({
+            url : 'getLeftMenu',
+            type : "post",
+            dataType : "json",
+            contentType : "application/json",
+            success : function(res) {
+                console.log(res)
+                var menuHtml = '';
+                menuHtml += '<ul class="layui-nav layui-nav-tree"  lay-filter="test">'
+                for(var i = 0;i<res.length;i++){
+                    var children = res[i].children;
+                    menuHtml+='<li class="layui-nav-item">';
+                    menuHtml+='<a class="" href="javascript:;">'+res[i].menu_name+'</a>';
+                    if(children.length>0){
+                        menuHtml+='<dl class="layui-nav-child">';
+                        for(var j = 0;j<children.length;j++){
+                            menuHtml+='<dd><a href="javascript:;">'
+                            if(children[j].menu_icon){
+                                menuHtml+=children[j].menu_icon;
+                            }
+                            menuHtml+=children[j].menu_name+'</a></dd>';
+                        }
+                        menuHtml+='</dl>';
+                    }
+                    menuHtml+='</li>';
+                }
+                menuHtml+='</ul>';
+                $("#leftMenu").html(menuHtml);
+                layui.use('element', function(){
+                    var element = layui.element;
+                });
+            }
+        });
+
+    })
 
 </script>
 </html>

@@ -33,4 +33,5 @@ public class UserService implements UserMapper {
         List<Map<String, Object>> list = userMapper.getUserInfo(name,depID);
         return list;
     }
+
 }

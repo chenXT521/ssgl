@@ -1,8 +1,10 @@
 package com.cxt.ssgl.controller;
 
+import com.cxt.ssgl.entity.BaseMenu;
 import com.cxt.ssgl.entity.Department;
 import com.cxt.ssgl.entity.User;
 import com.cxt.ssgl.mapper.UserMapper;
+import com.cxt.ssgl.service.IndexService;
 import com.cxt.ssgl.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +26,9 @@ import java.util.Map;
 public class LoginController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private IndexService indexService;
 
     @RequestMapping("/login")
     public String login(HttpSession session){
@@ -62,13 +68,36 @@ public class LoginController {
                 result.put("returnValue","密码错误");
             }
         }
-
         return result;
     }
 
     @RequestMapping("/toIndex")
-    public String toIndex(Model model,HttpSession session){
+    public String toIndex(){
         return "index/index";
+    }
+
+    @RequestMapping("/getLeftMenu")
+    @ResponseBody
+    public List<BaseMenu> getLeftMenu(HttpSession session){
+        User user = (User) session.getAttribute("user");
+        String depID = user.getDepID();
+        List<BaseMenu> menus = indexService.getLeftMenu(depID);
+        Map<String, BaseMenu> map = new HashMap<String, BaseMenu>();
+        List<BaseMenu> list = new ArrayList<BaseMenu>();
+        for (BaseMenu menu : menus) {
+            if (menu.getMenu_level() == 1) {
+                map.put(menu.getUuid(), menu);
+                list.add(menu);
+            }
+        }
+        for (BaseMenu menu : menus) {
+            if (menu.getMenu_level() == 2) {
+                if (map.containsKey(menu.getMenu_fid())) {
+                    map.get(menu.getMenu_fid()).getChildren().add(menu);
+                }
+            }
+        }
+        return list;
     }
 
     @RequestMapping("/logout")

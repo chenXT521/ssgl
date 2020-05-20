@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cxt.ssgl.mapper.IndexMapper">
+    <resultMap id="MenuMap" type="com.cxt.ssgl.entity.BaseMenu" >
+        <result column="uuid" property="uuid" jdbcType="VARCHAR" />
+        <result column="menu_name" property="menu_name" jdbcType="VARCHAR" />
+        <result column="menu_level" property="menu_level" jdbcType="INTEGER" />
+        <result column="menu_fid" property="menu_fid" jdbcType="VARCHAR" />
+        <result column="memu_state" property="memu_state" jdbcType="INTEGER" />
+        <result column="menu_url" property="menu_url" jdbcType="VARCHAR" />
+        <result column="menu_sort" property="menu_sort" jdbcType="INTEGER" />
+        <result column="menu_icon" property="menu_icon" jdbcType="VARCHAR" />
+    </resultMap>
+    <select id="getLeftMenu" resultMap="MenuMap"  >
+        select f.* from rel_dep_menu t left join base_menu f on t.menuID = f.uuid where t.depID = #{depID} order by f.menu_sort
+    </select>
+</mapper>
