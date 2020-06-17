@@ -29,6 +29,12 @@ public class UserService implements UserMapper {
     }
 
     @Override
+    public List<Department> getLoginDep() {
+        List<Department> loginDep=userMapper.getLoginDep();
+        return loginDep;
+    }
+
+    @Override
     public List<Map<String, Object>> getUserInfo(String name, String depID) {
         List<Map<String, Object>> list = userMapper.getUserInfo(name,depID);
         return list;

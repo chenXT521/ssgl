@@ -38,7 +38,6 @@
                 <stop stop-color="#ff7300" offset="0">
                     <animate attributeName="stop-color" values="#ff7300;#97FFFF;#ff7300"
                              begin="0s" dur="2s" repeatCount="indefinite" />
-                    </text>
                 </stop>
                 <stop stop-color="#34538b" offset="0.5">
                     <animate attributeName="stop-color" values="#87CEFA;#43CD80;#87CEFA"
@@ -48,7 +47,6 @@
                     <animate attributeName="stop-color" values="#97FFFF;#ff7300;#97FFFF"
                              begin="0s" dur="2s" repeatCount="indefinite" />
                 </stop>
-                </text>
             </linearGradient>
             <g transform="scale(2.5)">
                 <text xmlns="http://www.w3.org/2000/svg" fill="url(#svg_2)"
@@ -68,7 +66,7 @@
             <div class="form-group">
                 <img src="/pictures/department.png" style="width: 32px;height: 32px"></img>
                 <select id="selectDep" name="depId" title="选择用户部门" class="selectpicker" style="width: 250px">
-                    <option th:each="dep,depStat:${session.deps}" th:value="${dep.depID}" th:text="${dep.depName}"></option>
+                    <option th:each="dep,depStat:${session.loginDep}" th:value="${dep.depID}" th:text="${dep.depName}"></option>
                 </select>
             </div>
             <div class="form-group" style="margin-top: 20px">

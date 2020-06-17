@@ -28,7 +28,7 @@
             <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item">
                     <a href="javascript:;">
-                        <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                        <img src="/pictures/touxiang.png" class="layui-nav-img">
                         <span  th:text="${session.user.depName}"/>-<span  th:text="${session.user.name}"/>
                     </a>
                     <dl class="layui-nav-child">
@@ -66,7 +66,7 @@
                                  style="width: 100%; height: 100%">
                                 <div class="tab-pane fade in active" id="home" style="width: 100%;height: 100%">
                                     <iframe id="iframeAll"   marginheight="0" marginwidth="0" frameborder="0" scrolling="true" style="width: 100%;height: calc(100%) ">
-
+                                        <!-- 中间内容部分 -->
                                     </iframe>
                                 </div>
                             </div>
@@ -91,7 +91,6 @@
             dataType : "json",
             contentType : "application/json",
             success : function(res) {
-                console.log(res)
                 var menuHtml = '';
                 menuHtml += '<ul class="layui-nav layui-nav-tree"  lay-filter="test">'
                 for(var i = 0;i<res.length;i++){
@@ -101,11 +100,6 @@
                     if(children.length>0){
                         menuHtml+='<dl class="layui-nav-child">';
                         for(var j = 0;j<children.length;j++){
-                            /*if(children[j].menu_url){
-                                menuHtml+='<dd><a href="'+children[j].menu_url+'">';
-                            }else{
-
-                            }*/
                             menuHtml+='<dd><a href="javascript:;" onclick="menuClick(\''+children[j].menu_url+'\',\''+children[j].menu_name+'\')">';
                             if(children[j].menu_icon){
                                 menuHtml+=children[j].menu_icon;
@@ -126,7 +120,7 @@
 
     })
     function menuClick(url, title) {
-
+        if(!url){return}
         $("#"+title+"TAB,#"+title).remove();
         var temp = "<li  id='"+title+"TAB' >"
             + "<a href='#"+ title +"' data-toggle='tab'>" + title

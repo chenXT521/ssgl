@@ -11,5 +11,7 @@ public interface UserMapper {
 
     List<Department> getDepInfo();
 
+    List<Department> getLoginDep();
+
     List<Map<String,Object>> getUserInfo(String name,String depID);
 }

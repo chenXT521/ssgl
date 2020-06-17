@@ -34,7 +34,8 @@ public class LoginController {
     public String login(HttpSession session){
         List<Department> deps = userService.getDepInfo();
         session.setAttribute("deps",deps);
-        System.out.println(session.getAttribute("user"));
+        List<Department> loginDep = userService.getLoginDep();
+        session.setAttribute("loginDep",loginDep);
         return "login/login";
     }
 

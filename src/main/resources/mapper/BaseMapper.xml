@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cxt.ssgl.mapper.BaseMapper">
+    <delete id="removeDepById" parameterType="java.lang.String">
+        delete from base_dep where depID = #{value}
+    </delete>
+
+    <delete id="removeRelDepMenu" parameterType="java.lang.String">
+        delete from rel_dep_menu where depID = #{value}
+    </delete>
+
+    <select id="getDepByName" parameterType="java.lang.String" resultType="java.util.Map">
+        select * from base_dep where depName = #{value}
+    </select>
+
+    <insert id="addDep" parameterType="java.util.Map">
+        insert into base_dep (depID, depName, state)
+        values (#{uuid},#{depName},#{depState});
+    </insert>
+
+    <update id="editDep" parameterType="java.util.Map">
+        update base_dep set depName = #{depName},state = #{depState} where depID = #{depId}
+    </update>
+</mapper>

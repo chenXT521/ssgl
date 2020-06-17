@@ -4,6 +4,7 @@ public class Department {
 
     private String depID;
     private String depName;
+    private int state;
 
     public String getDepID() {
         return depID;
@@ -19,5 +20,13 @@ public class Department {
 
     public void setDepName(String depName) {
         this.depName = depName;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
     }
 }

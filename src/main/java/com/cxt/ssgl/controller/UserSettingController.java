@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class UserSettingController {
 
     @RequestMapping("/addUser")
-    public String toIndex(){
+    public String toAddUser(){
         return "userSetting/addUser";
     }
 }

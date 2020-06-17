@@ -4,14 +4,21 @@
     <resultMap id="DepartmentMap" type="com.cxt.ssgl.entity.Department" >
         <result column="depid" property="depID" jdbcType="VARCHAR" />
         <result column="depname" property="depName" jdbcType="VARCHAR" />
+        <result column="state" property="state" jdbcType="INTEGER" />
     </resultMap>
     <select id="getDepInfo" resultMap="DepartmentMap"  >
         SELECT
-        depID,depName
+        depID,depName,state
         FROM base_dep
     </select>
 
+    <select id="getLoginDep" resultMap="DepartmentMap"  >
+        SELECT
+        depID,depName,state
+        FROM base_dep where state = 1 or state = 3
+    </select>
+
     <select id="getUserInfo" parameterType="String" resultType="java.util.Map">
-        select t.*,f.depName from base_user t left join base_dep f on t.depID = f.depID where t.name=#{name} or t.tel=#{name} and t.depID=#{depID}
+        select t.*,f.depName from base_user t left join base_dep f on t.depID = f.depID where t.name=#{name} or t.tel=#{name} and t.depID=#{depID} and state = 1 or state = 3
     </select>
 </mapper>

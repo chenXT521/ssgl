@@ -1,10 +1,97 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<script type="text/javascript" src="/css/commonCss.js"></script>
+<script type="text/javascript" src="/js/commonJs.js"></script>
+<link href="/css/common.css" rel="stylesheet" type="text/css">
+<link href="/plugins/checkPlugin/css/awesome-bootstrap-checkbox.css" rel="stylesheet" type="text/css">
+<style>
+    .table th, .table td {
+        text-align: center;
+        vertical-align: middle!important;
+    }
+    .title{
+        font-size: larger;
+        font-weight: bolder;
+    }
+    .notNull{
+        color: red;
+    }
+</style>
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-    添加人员
+    <div style="text-align: center;width: 100%">
+        <h3>添加员工</h3>
+    </div>
+    <div class="col-lg-8 text-center col-md-offset-2" >
+        <form id="userForm" role="form">
+            <table class="table table-bordered">
+                <tr>
+                    <td class="col-md-2">
+                        <span class="notNull">*</span>
+                        <span class="title">员工姓名</span>
+                    </td>
+                    <td class="col-md-4">
+                        <input type="text" class="form-control" name="name" placeholder="请输入员工姓名">
+                    </td>
+                    <td class="col-md-2">
+                        <span class="notNull">*</span>
+                        <span class="title">性别</span>
+                    </td>
+                    <td class="col-md-4 radio">
+                        <div class="radio radio-success radio-inline">
+                            <input type="radio" id="man" value="0"  name="sex">
+                            <label for="man">男</label>
+                        </div>
+                        <div class="radio radio-danger radio-inline">
+                            <input type="radio" id="women" hascheck="1" value="1" name="sex">
+                            <label for="women">女</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-2">
+                        <span class="notNull">*</span>
+                        <span class="title">手机号</span>
+                    </td>
+                    <td class="col-md-4">
+                        <input type="text" class="form-control" name="mobileNumber" placeholder="请输入手机号码">
+                    </td>
+                    <td class="col-md-2">
+                        <span class="notNull">*</span>
+                        <span class="title">身份证</span>
+                    </td>
+                    <td class="col-md-4 radio">
+                        <input type="text" class="form-control" name="identityCard" placeholder="请输入身份证号码">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-2">
+                        <span class="notNull">*</span>
+                        <span class="title">所属部门</span>
+                    </td>
+                    <td class="col-md-4">
+                        <select id="depID" name="depID" title="用户所属部门" class="selectpicker form-control" >
+                            <option th:each="dep,depStat:${session.deps}" th:value="${dep.depID}" th:text="${dep.depName}"></option>
+                        </select>
+                    </td>
+                    <td class="col-md-2">
+                        <span class="notNull">*</span>
+                        <span class="title">工种</span>
+                    </td>
+                    <td class="col-md-4 radio">
+                        <input type="text" class="form-control" name="identityCard" placeholder="请输入身份证号码">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
 </body>
+<script>
+    $(document).ready(function(){
+
+    });
+</script>
 </html>
